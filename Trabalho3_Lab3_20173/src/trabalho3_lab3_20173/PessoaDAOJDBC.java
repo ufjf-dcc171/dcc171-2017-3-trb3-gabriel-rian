@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author gabrielsantos
+ * @author RianAlves
  */
 public class PessoaDAOJDBC implements PessoaDAO{
     private Connection conexao;
