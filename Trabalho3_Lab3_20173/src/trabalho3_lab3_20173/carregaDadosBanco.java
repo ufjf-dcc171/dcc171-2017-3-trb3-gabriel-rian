@@ -23,7 +23,7 @@ public class carregaDadosBanco {
         
         this.listaPessoa = (ArrayList<Pessoa>) daoPessoa.listaTodas();
         this.listaProjetos = (ArrayList<Projeto>) daoProj.listarTodos();
-        this.listaTarefa = daoTarefa.listaTodas();
+        this.listaTarefa = (ArrayList<Tarefa>) daoTarefa.listaTodas();
     }
 
     public ArrayList<Projeto> getListaProjetos() {

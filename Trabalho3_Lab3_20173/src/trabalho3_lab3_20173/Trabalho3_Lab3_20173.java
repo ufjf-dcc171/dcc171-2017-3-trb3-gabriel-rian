@@ -17,7 +17,7 @@ public class Trabalho3_Lab3_20173 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception{
-       Janela janela = new Janela();
+        Janela janela = new Janela();
         janela.setVisible(true);
         janela.setSize(1200, 700);
         janela.setLocationRelativeTo(null);

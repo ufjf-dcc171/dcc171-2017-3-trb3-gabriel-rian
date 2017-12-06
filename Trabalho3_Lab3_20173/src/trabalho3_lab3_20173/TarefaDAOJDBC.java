@@ -32,36 +32,27 @@ public class TarefaDAOJDBC implements TarefaDAO{
     }
 
     @Override
-    public void cria(Tarefa taf){
-        try {
-            operacaoInsere.clearParameters();
-            operacaoInsere.setString(1, taf.getNome());
-            operacaoInsere.setString(2, taf.getDescricao());
-            operacaoInsere.setDate(3, (Date) taf.getDataInicial());
-            operacaoInsere.setDate(4, (Date) taf.getDataFinal());
-            operacaoInsere.setFloat(5, taf.getPercentual());
-            operacaoInsere.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(TarefaDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    public void cria(Tarefa taf) throws Exception {
+        operacaoInsere.clearParameters();
+        operacaoInsere.setString(1, taf.getNome());
+        operacaoInsere.setString(2, taf.getDescricao());
+        operacaoInsere.setDate(3, (Date) taf.getDataInicial());
+        operacaoInsere.setDate(4, (Date) taf.getDataFinal());
+        operacaoInsere.setFloat(5, taf.getPercentual());
+        operacaoInsere.executeUpdate();
     }
 
     @Override
-    public ArrayList<Tarefa> listaTodas()  {
-       try {  
-            ArrayList<Tarefa> tarefas = new ArrayList<>();
-            operacaoListar.clearParameters();
-            ResultSet resultado = operacaoListar.executeQuery();
-            while (resultado.next()) {
-                Tarefa p = new Tarefa();
-                p.setNome(resultado.getString(1));
-                tarefas.add(p);
-            }
-            return tarefas;
-        }catch(SQLException ex) {
-            Logger.getLogger(TarefaDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
+    public List<Tarefa> listaTodas() throws Exception {
+        List<Tarefa> tarefas = new ArrayList<>();
+        operacaoListar.clearParameters();
+        ResultSet resultado = operacaoListar.executeQuery();
+        while (resultado.next()) {
+            Tarefa p = new Tarefa();
+            p.setNome(resultado.getString(1));
+            tarefas.add(p);
         }
-       return null;
+        return tarefas;
     }
+    
 }

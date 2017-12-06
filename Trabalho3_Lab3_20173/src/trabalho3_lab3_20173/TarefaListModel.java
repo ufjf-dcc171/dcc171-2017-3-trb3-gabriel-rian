@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trab_lab3_20173;
+package trabalho3_lab3_20173;
 
 import java.util.ArrayList;
 import java.util.List;
