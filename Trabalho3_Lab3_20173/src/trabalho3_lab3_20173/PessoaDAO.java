@@ -7,7 +7,7 @@ package trab_lab3_20173;
 import java.util.List;
 /**
  *
- * @author gabrielsantos
+ * @author RianAlves
  */
 public interface PessoaDAO {
     public void cria(Pessoa p) throws Exception;
