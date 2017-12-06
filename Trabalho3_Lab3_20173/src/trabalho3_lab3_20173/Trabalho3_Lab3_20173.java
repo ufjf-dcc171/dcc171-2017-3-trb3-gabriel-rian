@@ -5,6 +5,8 @@
  */
 package trabalho3_lab3_20173;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author RianAlves
@@ -14,7 +16,7 @@ public class Trabalho3_Lab3_20173 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
        Janela janela = new Janela();
         janela.setVisible(true);
         janela.setSize(1200, 700);
