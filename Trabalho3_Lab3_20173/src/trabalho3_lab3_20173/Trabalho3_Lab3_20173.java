@@ -7,7 +7,7 @@ package trabalho3_lab3_20173;
 
 /**
  *
- * @author gabriel
+ * @author RianAlves
  */
 public class Trabalho3_Lab3_20173 {
 
@@ -15,7 +15,11 @@ public class Trabalho3_Lab3_20173 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Janela janela = new Janela();
+        janela.setVisible(true);
+        janela.setSize(1200, 700);
+        janela.setLocationRelativeTo(null);
+        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
 }
