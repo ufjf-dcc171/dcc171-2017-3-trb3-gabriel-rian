@@ -48,16 +48,20 @@ public class TarefaDAOJDBC implements TarefaDAO{
     }
 
     @Override
-    public List<Tarefa> listaTodas() throws Exception {
-        List<Tarefa> tarefas = new ArrayList<>();
-        operacaoListar.clearParameters();
-        ResultSet resultado = operacaoListar.executeQuery();
-        while (resultado.next()) {
-            Tarefa p = new Tarefa();
-            p.setNome(resultado.getString(1));
-            tarefas.add(p);
+    public ArrayList<Tarefa> listaTodas()  {
+       try {  
+            ArrayList<Tarefa> tarefas = new ArrayList<>();
+            operacaoListar.clearParameters();
+            ResultSet resultado = operacaoListar.executeQuery();
+            while (resultado.next()) {
+                Tarefa p = new Tarefa();
+                p.setNome(resultado.getString(1));
+                tarefas.add(p);
+            }
+            return tarefas;
+        }catch(SQLException ex) {
+            Logger.getLogger(TarefaDAOJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tarefas;
+       return null;
     }
-    
 }

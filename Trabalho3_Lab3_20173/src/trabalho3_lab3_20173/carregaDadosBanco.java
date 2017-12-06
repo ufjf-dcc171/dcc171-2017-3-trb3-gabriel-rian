@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trab_lab3_20173;
+package trabalho3_lab3_20173;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class carregaDadosBanco {
         
         this.listaPessoa = (ArrayList<Pessoa>) daoPessoa.listaTodas();
         this.listaProjetos = (ArrayList<Projeto>) daoProj.listarTodos();
-        this.listaTarefa = (ArrayList<Tarefa>) daoTarefa.listaTodas();
+        this.listaTarefa = daoTarefa.listaTodas();
     }
 
     public ArrayList<Projeto> getListaProjetos() {
