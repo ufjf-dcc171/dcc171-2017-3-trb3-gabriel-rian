@@ -19,16 +19,14 @@ public class Projeto{
     private Date dataAbertura;
     private Date dataEncerramento;
     private Boolean status;
-    private ArrayList<Tarefa> listaTarefa;
 
-    public Projeto(String nomeResponsavel, String nome, String descricao, Date dataAbertura, Date dataEncerramento, Boolean status, ArrayList<Tarefa> lista) {
+    public Projeto(String nomeResponsavel, String nome, String descricao, Date dataAbertura, Date dataEncerramento, Boolean status) {
         this.nomeResponsavel = nomeResponsavel;
         this.nome = nome;
         this.descricao = descricao;
         this.dataAbertura = dataAbertura;
         this.dataEncerramento = dataEncerramento;
         this.status = status;
-        this.listaTarefa = lista;
     }
 
     public Projeto(String nomeResponsavel, String descricao) {
@@ -66,14 +64,6 @@ public class Projeto{
 
     public void setDataEncerramento(Date dataEncerramento) {
         this.dataEncerramento = dataEncerramento;
-    }
-
-    public ArrayList<Tarefa> getListaTarefa() {
-        return listaTarefa;
-    }
-
-    public void setListaTarefa(ArrayList<Tarefa> listaTarefa) {
-        this.listaTarefa = listaTarefa;
     }
 
     public String getNome() {
