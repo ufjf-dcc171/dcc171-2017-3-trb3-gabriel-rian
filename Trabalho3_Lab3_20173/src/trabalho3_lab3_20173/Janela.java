@@ -10,6 +10,9 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -204,7 +207,7 @@ public class Janela extends JFrame {
                     arrayTarefa.add(f);
                     lstTarefa.updateUI();
                     dao.cria(f);
-                    
+                    limpaCampos();
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -225,6 +228,7 @@ public class Janela extends JFrame {
                     arrayProjetos.add(p);
                     lstProjeto.updateUI();
                     dao.criar(p, person);
+                    limpaCampos();
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -245,6 +249,7 @@ public class Janela extends JFrame {
                         arrayPessoa.add(p);
                         lstPessoa.updateUI();
                         dao.cria(p);
+                        limpaCampos();
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
@@ -266,6 +271,44 @@ public class Janela extends JFrame {
                 
             }
         });
+        
+        btnEditaTarefa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        
+       //---------------------------------------Fim Acoes Botoes---------------------------------------------------------
+       
+       //------------------------------------------Incio Controle Listas-------------------------------------------------
+       
+       lstTarefa.addMouseListener(new MouseAdapter() {    
+           @Override
+            public void mouseClicked(MouseEvent e) {
+                if(e.getClickCount() == 1){
+                    Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
+                    txtNomeTarefa.setText(taf.getNome());
+                    txtNomeTarefa.setEnabled(false);
+                    txtDescricaoTarefa.setText(taf.getDescricao());
+                    txtDataIncialTarefa.setText(taf.getDataInicial().toString());
+                    txtDataFinalTarefa.setText(taf.getDataFinal().toString());
+                    txtPercentualTarefa.setText(String.valueOf(taf.getPercentual()));
+                }
+            }
+        });
     }
     
+    public void limpaCampos(){
+        txtDataFinalProjeto.setText("");
+        txtDataFinalTarefa.setText("");;
+        txtDataIncialTarefa.setText("");;
+        txtDataInicialProjeto.setText("");
+        txtDescricaoProjeto.setText("");
+        txtDescricaoTarefa.setText("");
+        txtNomeProj.setText("");
+        txtNomeTarefa.setText("");
+        txtPercentualTarefa.setText("");
+        txtStatusProjeto.setText("");
+    }
 }
