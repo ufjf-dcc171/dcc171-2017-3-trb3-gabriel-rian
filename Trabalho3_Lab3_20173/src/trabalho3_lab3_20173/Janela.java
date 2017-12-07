@@ -79,7 +79,8 @@ public class Janela extends JFrame {
     private final JButton btnAdicionaPessoa = new JButton("Adicionar Pessoa");
     private final JButton btnAdicionaTarefa = new JButton("Adicionar Tarefa");
     private final JButton btnAdicionaProjeto = new JButton("Adicionar Projeto");
-    private final JButton btnStatus = new JButton("Exibir Status");
+    private final JButton btnStatus = new JButton("Alterar Situação Tarefa");
+    private final JButton btnEditaTarefa = new JButton("Editar Tarefa");
     
     private final JPanel pnlLista = new JPanel();
     private final JPanel pnlLabels = new JPanel();
@@ -108,7 +109,7 @@ public class Janela extends JFrame {
         pnlComponentes.setLayout(new GridLayout(11,1));
         pnlComponentesProj.setLayout(new GridLayout(11,1));
         pnlAcao.setLayout(new GridLayout(1,3));
-        pnlBotoes.setLayout(new GridLayout(7,1));
+        pnlBotoes.setLayout(new GridLayout(8,1));
         pnlPrincipal.setLayout(new BorderLayout());
         
         
@@ -138,6 +139,7 @@ public class Janela extends JFrame {
         pnlBotoes.add(btnAdicionaTarefa);
         pnlBotoes.add(btnAdicionaProjeto);
         pnlBotoes.add(btnStatus);
+        pnlBotoes.add(btnEditaTarefa);
         pnlBotoes.add(lbBanco);
         pnlBotoes.add(txtBancoDados);
         
@@ -198,6 +200,7 @@ public class Janela extends JFrame {
                     f.setDataInicial(Date.valueOf(txtDataIncialTarefa.getText()));
                     f.setDataFinal(Date.valueOf(txtDataFinalTarefa.getText()));
                     f.setPercentual(Float.parseFloat(txtPercentualTarefa.getText()));
+                    f.setEstado("Pendente");
                     arrayTarefa.add(f);
                     lstTarefa.updateUI();
                     dao.cria(f);
@@ -246,6 +249,21 @@ public class Janela extends JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+        });
+        
+        btnEditaTarefa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    TarefaDAO dao = new TarefaDAOJDBC();
+                    Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
+                    String estado = JOptionPane.showInputDialog("Estado da tarefa (Pendente, Fazendo ou Concluida): ");
+                    dao.alteraStatus(estado, taf);
+                } catch (Exception ex) {
+                    Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         });
     }

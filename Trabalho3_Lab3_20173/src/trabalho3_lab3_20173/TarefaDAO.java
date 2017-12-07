@@ -13,5 +13,5 @@ import java.util.List;
  interface TarefaDAO {
     public void cria(Tarefa taf) throws  Exception;
     public List<Tarefa> listaTodas() throws Exception;
-
+    public void alteraStatus(String estado, Tarefa f) throws Exception;
 }

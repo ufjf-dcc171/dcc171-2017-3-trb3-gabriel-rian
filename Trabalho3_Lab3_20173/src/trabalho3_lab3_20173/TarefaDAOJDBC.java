@@ -23,12 +23,13 @@ public class TarefaDAOJDBC implements TarefaDAO{
     private Connection conexao;
     private PreparedStatement operacaoInsere;
     private PreparedStatement operacaoListar;
+    private PreparedStatement operacaoAtualizar;
 
     public TarefaDAOJDBC() throws Exception {
         conexao = config.getConnection();
-        operacaoInsere = conexao.prepareStatement("INSERT INTO tarefa(nome, descricao, dataIncial, dataFinal, percentual) VALUES(?,?,?,?,?)");
+        operacaoInsere = conexao.prepareStatement("INSERT INTO tarefa(nome, descricao, dataIncial, dataFinal, percentual, estado) VALUES(?,?,?,?,?,?)");
         operacaoListar = conexao.prepareStatement("SELECT nome FROM tarefa");
-
+        operacaoAtualizar = conexao.prepareStatement("UPDATE tarefa SET estado = ? WHERE nome = ?");
     }
 
     @Override
@@ -39,6 +40,7 @@ public class TarefaDAOJDBC implements TarefaDAO{
         operacaoInsere.setDate(3, (Date) taf.getDataInicial());
         operacaoInsere.setDate(4, (Date) taf.getDataFinal());
         operacaoInsere.setFloat(5, taf.getPercentual());
+        operacaoInsere.setString(6, taf.getEstado());
         operacaoInsere.executeUpdate();
     }
 
@@ -53,6 +55,14 @@ public class TarefaDAOJDBC implements TarefaDAO{
             tarefas.add(p);
         }
         return tarefas;
+    }
+
+    @Override
+    public void alteraStatus(String estado, Tarefa f) throws Exception {
+       operacaoAtualizar.clearParameters();
+       operacaoAtualizar.setString(1, estado);
+       operacaoAtualizar.setString(2, f.getNome());
+       operacaoAtualizar.executeUpdate();
     }
     
 }
