@@ -265,6 +265,12 @@ public class Janela extends JFrame {
                     Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
                     String estado = JOptionPane.showInputDialog("Estado da tarefa (Pendente, Fazendo ou Concluida): ");
                     dao.alteraStatus(estado, taf);
+                    taf.setEstado(estado);
+                    lstTarefa.remove(lstTarefa.getSelectedIndex());
+                    lstTarefa.updateUI();
+                    arrayTarefa.add(taf);
+                    lstTarefa.updateUI();
+                    JOptionPane.showMessageDialog(null, "Estado Atualizado com sucesso!");
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -275,7 +281,32 @@ public class Janela extends JFrame {
         btnEditaTarefa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                try {
+                    TarefaDAO dao = new TarefaDAOJDBC();
+                    Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
+                    Tarefa taf2 = new Tarefa();
+                    
+                    txtNomeTarefa.setText(taf.getNome());
+                    txtNomeTarefa.setEnabled(false);
+                    txtDataIncialTarefa.setText(taf.getDataInicial().toString());
+                    txtDataFinalTarefa.setText(taf.getDataFinal().toString());
+                    txtPercentualTarefa.setText(String.valueOf(taf.getPercentual()));
+                    
+                    taf2.setDataInicial(Date.valueOf(txtDataIncialTarefa.getText()));
+                    taf2.setDataFinal(Date.valueOf(txtDataFinalTarefa.getText()));
+                    taf2.setPercentual(Float.valueOf(txtPercentualTarefa.getText()));
+                    
+                    lstTarefa.remove(lstTarefa.getSelectedIndex());
+                    lstTarefa.updateUI();
+                    arrayTarefa.add(taf2);
+                    lstTarefa.updateUI();
+                    
+                    dao.editaTarefa(taf);
+                    JOptionPane.showMessageDialog(null, "Tarefa Atualizada com Sucesso!");
+                } catch (Exception ex) {
+                    Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         });
         

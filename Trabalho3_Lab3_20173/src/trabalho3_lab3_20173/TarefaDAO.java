@@ -14,4 +14,5 @@ import java.util.List;
     public void cria(Tarefa taf) throws  Exception;
     public List<Tarefa> listaTodas() throws Exception;
     public void alteraStatus(String estado, Tarefa f) throws Exception;
-}
+    public void editaTarefa(Tarefa f) throws Exception;
+ }

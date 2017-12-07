@@ -24,12 +24,14 @@ public class TarefaDAOJDBC implements TarefaDAO{
     private PreparedStatement operacaoInsere;
     private PreparedStatement operacaoListar;
     private PreparedStatement operacaoAtualizar;
+    private PreparedStatement operacaoEdita;
 
     public TarefaDAOJDBC() throws Exception {
         conexao = config.getConnection();
         operacaoInsere = conexao.prepareStatement("INSERT INTO tarefa(nome, descricao, dataIncial, dataFinal, percentual, estado) VALUES(?,?,?,?,?,?)");
         operacaoListar = conexao.prepareStatement("SELECT nome FROM tarefa");
         operacaoAtualizar = conexao.prepareStatement("UPDATE tarefa SET estado = ? WHERE nome = ?");
+        operacaoEdita = conexao.prepareStatement("UPDATE tarefa SET dataInicial = ?, dataFinal = ?,  percentual = ? WHERE nome = ?");
     }
 
     @Override
@@ -63,6 +65,16 @@ public class TarefaDAOJDBC implements TarefaDAO{
        operacaoAtualizar.setString(1, estado);
        operacaoAtualizar.setString(2, f.getNome());
        operacaoAtualizar.executeUpdate();
+    }
+
+    @Override
+    public void editaTarefa(Tarefa f) throws Exception {
+        operacaoEdita.clearParameters();
+        operacaoEdita.setDate(1, (Date) f.getDataInicial());
+        operacaoEdita.setDate(2, (Date) f.getDataFinal());
+        operacaoEdita.setFloat(3, f.getPercentual());
+        operacaoEdita.setString(4, f.getNome());
+        operacaoEdita.executeUpdate();
     }
     
 }
