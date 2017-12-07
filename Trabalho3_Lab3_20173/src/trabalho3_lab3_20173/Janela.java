@@ -84,6 +84,7 @@ public class Janela extends JFrame {
     private final JButton btnAdicionaProjeto = new JButton("Adicionar Projeto");
     private final JButton btnStatus = new JButton("Alterar Situação Tarefa");
     private final JButton btnEditaTarefa = new JButton("Editar Tarefa");
+    private final JButton btnExcluirTarefa = new JButton("Excluir Tarefa");
     
     private final JPanel pnlLista = new JPanel();
     private final JPanel pnlLabels = new JPanel();
@@ -112,7 +113,7 @@ public class Janela extends JFrame {
         pnlComponentes.setLayout(new GridLayout(11,1));
         pnlComponentesProj.setLayout(new GridLayout(11,1));
         pnlAcao.setLayout(new GridLayout(1,3));
-        pnlBotoes.setLayout(new GridLayout(8,1));
+        pnlBotoes.setLayout(new GridLayout(9,1));
         pnlPrincipal.setLayout(new BorderLayout());
         
         
@@ -143,6 +144,7 @@ public class Janela extends JFrame {
         pnlBotoes.add(btnAdicionaProjeto);
         pnlBotoes.add(btnStatus);
         pnlBotoes.add(btnEditaTarefa);
+        pnlBotoes.add(btnExcluirTarefa);
         pnlBotoes.add(lbBanco);
         pnlBotoes.add(txtBancoDados);
         
@@ -257,7 +259,7 @@ public class Janela extends JFrame {
             }
         });
         
-        btnEditaTarefa.addActionListener(new ActionListener() {
+        btnStatus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -267,8 +269,6 @@ public class Janela extends JFrame {
                     dao.alteraStatus(estado, taf);
                     taf.setEstado(estado);
                     lstTarefa.remove(lstTarefa.getSelectedIndex());
-                    lstTarefa.updateUI();
-                    arrayTarefa.add(taf);
                     lstTarefa.updateUI();
                     JOptionPane.showMessageDialog(null, "Estado Atualizado com sucesso!");
                 } catch (Exception ex) {
@@ -298,15 +298,29 @@ public class Janela extends JFrame {
                     
                     lstTarefa.remove(lstTarefa.getSelectedIndex());
                     lstTarefa.updateUI();
-                    arrayTarefa.add(taf2);
-                    lstTarefa.updateUI();
-                    
+                    //arrayTarefa.add(taf2);
+                    //lstTarefa.updateUI();
                     dao.editaTarefa(taf);
                     JOptionPane.showMessageDialog(null, "Tarefa Atualizada com Sucesso!");
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+            }
+        });
+        
+        btnExcluirTarefa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    TarefaDAO dao = new TarefaDAOJDBC();
+                    Tarefa f = (Tarefa) lstTarefa.getSelectedValue();
+                    dao.excluiTarefa(f);
+                    lstTarefa.remove(lstTarefa.getSelectedIndex());
+                    lstTarefa.updateUI();
+                } catch (Exception ex) {
+                    Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -317,7 +331,7 @@ public class Janela extends JFrame {
        lstTarefa.addMouseListener(new MouseAdapter() {    
            @Override
             public void mouseClicked(MouseEvent e) {
-                if(e.getClickCount() == 1){
+                if(e.getClickCount() == 2){
                     Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
                     txtNomeTarefa.setText(taf.getNome());
                     txtNomeTarefa.setEnabled(false);
