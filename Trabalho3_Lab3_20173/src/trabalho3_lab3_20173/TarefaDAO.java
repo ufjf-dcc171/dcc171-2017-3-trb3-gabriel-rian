@@ -17,4 +17,5 @@ import java.util.List;
     public void editaTarefa(Tarefa f) throws Exception;
     public void excluiTarefa(Tarefa f) throws Exception;
     public int listaIdTarefa(Tarefa f) throws Exception;
+    public String listaEstadoTarefa(Tarefa f) throws Exception;
  }

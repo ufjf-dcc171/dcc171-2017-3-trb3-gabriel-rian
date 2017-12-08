@@ -272,8 +272,9 @@ public class Janela extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     TarefaDAO dao = new TarefaDAOJDBC();
+                    TarefaRequisitoDAO daoR = new TarefaRequisitoDAOJDBC();
                     Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
-                    String estado = JOptionPane.showInputDialog("Estado da tarefa (Pendente, Fazendo ou Concluida): ");
+                    String estado = JOptionPane.showInputDialog("Estado da tarefa (Fazendo ou Concluida): ");
                     dao.alteraStatus(estado, taf);
                     taf.setEstado(estado);
                     lstTarefa.remove(lstTarefa.getSelectedIndex());

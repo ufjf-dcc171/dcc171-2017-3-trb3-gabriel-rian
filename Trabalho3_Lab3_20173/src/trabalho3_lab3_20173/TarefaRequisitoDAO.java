@@ -11,4 +11,5 @@ package trabalho3_lab3_20173;
  */
 public interface TarefaRequisitoDAO {
     public void tarefaRequisito(int atual, int requisito) throws Exception;
+    public boolean tarefaAlteraEstado(Tarefa atual) throws Exception;
 }

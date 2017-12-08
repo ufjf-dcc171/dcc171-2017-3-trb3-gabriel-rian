@@ -44,5 +44,12 @@ create table tarefa_requisito(
     id_tarefaR int
 );
 
+create table pessoa(
+    id INT NOT NULL GENERATED ALWAYS AS IDENTITY, 
+    nome varchar(100) not null,
+    email varchar(100),
+    primary key (id)
+);
+
 select *from tarefa_requisito;
 
