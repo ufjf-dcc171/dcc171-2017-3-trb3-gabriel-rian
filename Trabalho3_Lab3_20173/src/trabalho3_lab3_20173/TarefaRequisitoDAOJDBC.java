@@ -26,6 +26,7 @@ public class TarefaRequisitoDAOJDBC implements TarefaRequisitoDAO{
         operacaoInsereRelacao.clearParameters();
         operacaoInsereRelacao.setInt(1, tarefa);
         operacaoInsereRelacao.setInt(2, requisito);
+        operacaoInsereRelacao.executeUpdate();
     }
     
 }
