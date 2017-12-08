@@ -59,7 +59,7 @@ public class Janela extends JFrame {
     private final JLabel lbNomeProj = new JLabel("Nome");
     private final JLabel lbDataInicialProj = new JLabel("Data Inicial (yyyy-mm-dd)");
     private final JLabel lbDataFinalProj = new JLabel("Data Final (yyyy-mm-dd)");
-    private final JLabel lbStatus = new JLabel("Status");
+    private final JLabel lbStatus = new JLabel("Status (Ativo - true || Inativo - false)");
     private final JLabel lbDescricaoProj = new JLabel("Descricao");
     private final JLabel lbTaf = new JLabel("Gerenciamento de Tarefa");
     private final JLabel lbProj = new JLabel("Gerenciamento de Projeto");
@@ -202,6 +202,7 @@ public class Janela extends JFrame {
                 try {
                     TarefaDAO dao = new TarefaDAOJDBC();
                     TarefaRequisitoDAO daoR = new TarefaRequisitoDAOJDBC();
+                    TarefaPessoaDAO daoP = new TarefaPessoaDAOJDBC();
                     Tarefa f = new Tarefa();
                     Tarefa requisito = (Tarefa)lstTarefa.getSelectedValue();
                     f.setNome(txtNomeTarefa.getText());
@@ -214,8 +215,10 @@ public class Janela extends JFrame {
                     lstTarefa.updateUI();
                     dao.cria(f);
                     int idTarefa = dao.listaIdTarefa(f);
-                    int idRequisito = dao.listaIdTarefa(requisito);
-                    daoR.tarefaRequisito(idTarefa, idRequisito);
+                    if(arrayTarefa.size() != 1){
+                        int idRequisito = dao.listaIdTarefa(requisito);
+                        daoR.tarefaRequisito(idTarefa, idRequisito);
+                    }
                     JOptionPane.showMessageDialog(null, "Tarefa Adicionada com Sucesso!");
                     limpaCampos();
                 } catch (Exception ex) {
@@ -235,6 +238,7 @@ public class Janela extends JFrame {
                     p.setDataAbertura(Date.valueOf(txtDataInicialProjeto.getText()));
                     p.setDataEncerramento(Date.valueOf(txtDataFinalProjeto.getText()));
                     p.setDescricao(txtDescricaoProjeto.getText());
+                    p.setStatus(Boolean.valueOf(txtStatusProjeto.getText()));
                     arrayProjetos.add(p);
                     lstProjeto.updateUI();
                     dao.criar(p, person);
@@ -274,12 +278,23 @@ public class Janela extends JFrame {
                     TarefaDAO dao = new TarefaDAOJDBC();
                     TarefaRequisitoDAO daoR = new TarefaRequisitoDAOJDBC();
                     Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
-                    String estado = JOptionPane.showInputDialog("Estado da tarefa (Fazendo ou Concluida): ");
-                    dao.alteraStatus(estado, taf);
-                    taf.setEstado(estado);
-                    lstTarefa.remove(lstTarefa.getSelectedIndex());
-                    lstTarefa.updateUI();
-                    JOptionPane.showMessageDialog(null, "Estado Atualizado com sucesso!");
+                    if(daoR.tarefaAlteraEstado(taf)){
+                        String estado = JOptionPane.showInputDialog("Estado da tarefa (Fazendo ou Concluida): ");
+                        dao.alteraStatus(estado, taf);
+                        taf.setEstado(estado);
+                        lstTarefa.remove(lstTarefa.getSelectedIndex());
+                        lstTarefa.updateUI();
+                        JOptionPane.showMessageDialog(null, "Estado Atualizado com sucesso!");
+                    }else if(arrayTarefa.size() == 1){
+                        String estado = JOptionPane.showInputDialog("Estado da tarefa (Fazendo ou Concluida): ");
+                        dao.alteraStatus(estado, taf);
+                        taf.setEstado(estado);
+                        lstTarefa.remove(lstTarefa.getSelectedIndex());
+                        lstTarefa.updateUI();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Existe tarefa anterior pendente.");
+                    }
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -325,7 +340,7 @@ public class Janela extends JFrame {
                     TarefaDAO dao = new TarefaDAOJDBC();
                     Tarefa f = (Tarefa) lstTarefa.getSelectedValue();
                     dao.excluiTarefa(f);
-                    lstTarefa.remove(lstTarefa.getSelectedIndex());
+                    arrayTarefa = dadosBD.getListaTarefa();
                     lstTarefa.updateUI();
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
@@ -366,10 +381,6 @@ public class Janela extends JFrame {
                     Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
                     txtNomeTarefa.setText(taf.getNome());
                     txtNomeTarefa.setEnabled(false);
-                    txtDescricaoTarefa.setText(taf.getDescricao());
-                    txtDataIncialTarefa.setText(taf.getDataInicial().toString());
-                    txtDataFinalTarefa.setText(taf.getDataFinal().toString());
-                    txtPercentualTarefa.setText(String.valueOf(taf.getPercentual()));
                 }
             }
         });

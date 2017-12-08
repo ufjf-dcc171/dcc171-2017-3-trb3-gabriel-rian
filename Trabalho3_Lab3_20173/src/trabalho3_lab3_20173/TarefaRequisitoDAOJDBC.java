@@ -41,7 +41,7 @@ public class TarefaRequisitoDAOJDBC implements TarefaRequisitoDAO{
         int idTarefaAtual = -1;
         int idTarefaRequisito = -1;
         String estado = " ";
-        String estadoEsperado = "Concluido";
+        String estadoEsperado = "Concluida";
         operacaoBuscaIdTarefa.clearParameters();
         operacaoBuscaIdTarefa.setString(1, atual.getNome());
         ResultSet resultado = operacaoBuscaIdTarefa.executeQuery();

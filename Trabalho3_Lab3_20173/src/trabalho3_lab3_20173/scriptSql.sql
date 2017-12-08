@@ -14,8 +14,6 @@ CREATE TABLE tarefa(
     descricao varchar(1000),
     dataIncial date,
     dataFinal date,
-    duracaoDias integer,
-    status boolean,
     percentual float,
     estado varchar(50),
     PRIMARY KEY (id)
@@ -51,5 +49,5 @@ create table pessoa(
     primary key (id)
 );
 
-select *from tarefa_requisito;
+select *from tarefa_pessoa;
 

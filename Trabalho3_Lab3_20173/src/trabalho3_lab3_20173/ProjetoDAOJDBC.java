@@ -72,7 +72,7 @@ public class ProjetoDAOJDBC implements ProjetoDAO{
 
     @Override
     public int buscaIdColab(Pessoa p) throws Exception {
-        int i = 0;
+        int i = -1;
         operacaoBuscaIdPessoa.clearParameters();
         operacaoBuscaIdPessoa.setString(1, p.getNome());
         ResultSet resultado = operacaoBuscaIdPessoa.executeQuery();

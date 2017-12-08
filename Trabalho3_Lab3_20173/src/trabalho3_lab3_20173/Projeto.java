@@ -18,7 +18,7 @@ public class Projeto{
     private String descricao;
     private Date dataAbertura;
     private Date dataEncerramento;
-    private Boolean status;
+    private Boolean status = true;
 
     public Projeto(String nomeResponsavel, String nome, String descricao, Date dataAbertura, Date dataEncerramento, Boolean status) {
         this.nomeResponsavel = nomeResponsavel;
@@ -87,6 +87,11 @@ public class Projeto{
 
     @Override
     public String toString() {
-        return nome + " - " + descricao;
+        if(status){
+            return nome + " - " + descricao + " - Ativo";
+        }else{
+            return nome + " - " + descricao + " - Inativo";
+        }
+        
     }
 }   

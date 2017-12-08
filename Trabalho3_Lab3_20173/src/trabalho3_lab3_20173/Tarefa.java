@@ -19,19 +19,17 @@ public class Tarefa {
    private Date dataInicial;
    private Date dataFinal;
    private String estado;
-   private boolean stutus = true;
 
     public Tarefa() {
     }
 
-    public Tarefa(String nome, String descricao, int duracaoDias, float percentual, Date dataInicial, Date dataFinal, Boolean status) {
+    public Tarefa(String nome, String descricao, int duracaoDias, float percentual, Date dataInicial, Date dataFinal) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracaoDias = duracaoDias;
         this.percentual = percentual;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
-        this.stutus = status;
     }
     
     
@@ -84,22 +82,9 @@ public class Tarefa {
         this.dataFinal = dataFinal;
     }
 
-    public boolean isStutus() {
-        return stutus;
-    }
-
-    public void setStutus(boolean stutus) {
-        this.stutus = stutus;
-    }
-
     @Override
     public String toString() {
-        if(isStutus()){
-            return nome + " - Ativa - " + estado;
-        }else{
-            return nome + " - Inativa - " + estado;
-        }
-        
+        return nome + " - " + estado;
     }
 
     public String getEstado() {
