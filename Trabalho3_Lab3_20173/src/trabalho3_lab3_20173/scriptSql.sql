@@ -49,5 +49,5 @@ create table pessoa(
     primary key (id)
 );
 
-select *from tarefa_pessoa;
+select *from tarefa;
 

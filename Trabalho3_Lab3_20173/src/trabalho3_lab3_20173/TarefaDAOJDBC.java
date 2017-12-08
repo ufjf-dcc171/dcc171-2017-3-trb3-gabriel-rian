@@ -34,7 +34,7 @@ public class TarefaDAOJDBC implements TarefaDAO{
         operacaoInsere = conexao.prepareStatement("INSERT INTO tarefa(nome, descricao, dataIncial, dataFinal, percentual, estado) VALUES(?,?,?,?,?,?)");
         operacaoListar = conexao.prepareStatement("SELECT nome, estado FROM tarefa");
         operacaoAtualizar = conexao.prepareStatement("UPDATE tarefa SET estado = ? WHERE nome = ?");
-        operacaoEdita = conexao.prepareStatement("UPDATE tarefa SET dataIncial = ?, dataFinal = ?,  percentual = ? WHERE nome = ?");
+        operacaoEdita = conexao.prepareStatement("UPDATE tarefa SET descricao = ?, dataIncial = ?, dataFinal = ?,  percentual = ? WHERE nome = ?");
         operacaoExcluir = conexao.prepareStatement("DELETE FROM tarefa WHERE nome = ?");
         operacaoListaId = conexao.prepareStatement("SELECT id FROM tarefa WHERE nome = ?");
         operacaoListaEstado = conexao.prepareStatement("SELECT estado FROM tarefa WHERE nome = ?");
@@ -77,10 +77,11 @@ public class TarefaDAOJDBC implements TarefaDAO{
     @Override
     public void editaTarefa(Tarefa f) throws Exception {
         operacaoEdita.clearParameters();
-        operacaoEdita.setDate(1, (Date) f.getDataInicial());
-        operacaoEdita.setDate(2, (Date) f.getDataFinal());
-        operacaoEdita.setFloat(3, f.getPercentual());
-        operacaoEdita.setString(4, f.getNome());
+        operacaoEdita.setString(1, f.getDescricao());
+        operacaoEdita.setDate(2, (Date) f.getDataInicial());
+        operacaoEdita.setDate(3, (Date) f.getDataFinal());
+        operacaoEdita.setFloat(4, f.getPercentual());
+        operacaoEdita.setString(5, f.getNome());
         operacaoEdita.executeUpdate();
     }
 

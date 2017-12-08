@@ -308,24 +308,19 @@ public class Janela extends JFrame {
                 try {
                     TarefaDAO dao = new TarefaDAOJDBC();
                     Tarefa taf = (Tarefa) lstTarefa.getSelectedValue();
-                    Tarefa taf2 = new Tarefa();
                     
                     txtNomeTarefa.setText(taf.getNome());
                     txtNomeTarefa.setEnabled(false);
-                    txtDataIncialTarefa.setText(taf.getDataInicial().toString());
-                    txtDataFinalTarefa.setText(taf.getDataFinal().toString());
-                    txtPercentualTarefa.setText(String.valueOf(taf.getPercentual()));
+                    taf.setDescricao(txtDescricaoTarefa.getText());
+                    taf.setDataInicial(Date.valueOf(txtDataIncialTarefa.getText()));
+                    taf.setDataFinal(Date.valueOf(txtDataFinalTarefa.getText()));
+                    taf.setPercentual(Float.valueOf(txtPercentualTarefa.getText()));
                     
-                    taf2.setDataInicial(Date.valueOf(txtDataIncialTarefa.getText()));
-                    taf2.setDataFinal(Date.valueOf(txtDataFinalTarefa.getText()));
-                    taf2.setPercentual(Float.valueOf(txtPercentualTarefa.getText()));
-                    
-                    lstTarefa.remove(lstTarefa.getSelectedIndex());
-                    lstTarefa.updateUI();
-                    //arrayTarefa.add(taf2);
-                    //lstTarefa.updateUI();
                     dao.editaTarefa(taf);
                     JOptionPane.showMessageDialog(null, "Tarefa Atualizada com Sucesso!");
+                    arrayTarefa = dadosBD.getListaTarefa();
+                    lstTarefa.updateUI();
+                    limpaCampos();
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -342,6 +337,7 @@ public class Janela extends JFrame {
                     dao.excluiTarefa(f);
                     arrayTarefa = dadosBD.getListaTarefa();
                     lstTarefa.updateUI();
+                    JOptionPane.showMessageDialog(null, "Tarefa Excluida com Sucesso!");
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
                 }
