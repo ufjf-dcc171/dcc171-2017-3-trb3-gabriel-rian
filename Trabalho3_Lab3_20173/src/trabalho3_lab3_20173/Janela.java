@@ -216,6 +216,7 @@ public class Janela extends JFrame {
                     int idTarefa = dao.listaIdTarefa(f);
                     int idRequisito = dao.listaIdTarefa(requisito);
                     daoR.tarefaRequisito(idTarefa, idRequisito);
+                    JOptionPane.showMessageDialog(null, "Tarefa Adicionada com Sucesso!");
                     limpaCampos();
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
