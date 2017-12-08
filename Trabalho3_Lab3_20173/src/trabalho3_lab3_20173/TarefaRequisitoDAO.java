@@ -10,5 +10,5 @@ package trabalho3_lab3_20173;
  * @author Gabriel
  */
 public interface TarefaRequisitoDAO {
-    
+    public void tarefaRequisito(int atual, int requisito) throws Exception;
 }

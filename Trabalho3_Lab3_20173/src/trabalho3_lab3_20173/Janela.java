@@ -201,7 +201,9 @@ public class Janela extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     TarefaDAO dao = new TarefaDAOJDBC();
+                    TarefaRequisitoDAO daoR = new TarefaRequisitoDAOJDBC();
                     Tarefa f = new Tarefa();
+                    Tarefa requisito = (Tarefa)lstTarefa.getSelectedValue();
                     f.setNome(txtNomeTarefa.getText());
                     f.setDescricao(txtDescricaoTarefa.getText());
                     f.setDataInicial(Date.valueOf(txtDataIncialTarefa.getText()));
@@ -211,6 +213,9 @@ public class Janela extends JFrame {
                     arrayTarefa.add(f);
                     lstTarefa.updateUI();
                     dao.cria(f);
+                    int idTarefa = dao.listaIdTarefa(f);
+                    int idRequisito = dao.listaIdTarefa(requisito);
+                    daoR.tarefaRequisito(idTarefa, idRequisito);
                     limpaCampos();
                 } catch (Exception ex) {
                     Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
