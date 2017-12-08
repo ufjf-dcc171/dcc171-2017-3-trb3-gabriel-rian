@@ -16,4 +16,5 @@ import java.util.List;
     public void alteraStatus(String estado, Tarefa f) throws Exception;
     public void editaTarefa(Tarefa f) throws Exception;
     public void excluiTarefa(Tarefa f) throws Exception;
+    public int listaIdTarefa(Tarefa f) throws Exception;
  }

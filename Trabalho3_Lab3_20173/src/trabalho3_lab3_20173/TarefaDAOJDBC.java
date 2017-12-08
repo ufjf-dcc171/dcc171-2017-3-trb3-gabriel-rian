@@ -26,6 +26,7 @@ public class TarefaDAOJDBC implements TarefaDAO{
     private PreparedStatement operacaoAtualizar;
     private PreparedStatement operacaoEdita;
     private PreparedStatement operacaoExcluir;
+    private PreparedStatement operacaoListaId;
 
     public TarefaDAOJDBC() throws Exception {
         conexao = config.getConnection();
@@ -34,6 +35,7 @@ public class TarefaDAOJDBC implements TarefaDAO{
         operacaoAtualizar = conexao.prepareStatement("UPDATE tarefa SET estado = ? WHERE nome = ?");
         operacaoEdita = conexao.prepareStatement("UPDATE tarefa SET dataIncial = ?, dataFinal = ?,  percentual = ? WHERE nome = ?");
         operacaoExcluir = conexao.prepareStatement("DELETE FROM tarefa WHERE nome = ?");
+        operacaoListaId = conexao.prepareStatement("SELECT id FROM tarefa WHERE nome = ?");
     }
 
     @Override
@@ -85,6 +87,18 @@ public class TarefaDAOJDBC implements TarefaDAO{
         operacaoExcluir.clearParameters();
         operacaoExcluir.setString(1, f.getNome());
         operacaoExcluir.executeUpdate();
+    }
+
+    @Override
+    public int listaIdTarefa(Tarefa f) throws Exception {
+        int id = -1;
+        operacaoListaId.clearParameters();
+        operacaoListaId.setString(1, f.getNome());
+        ResultSet resultado = operacaoListaId.executeQuery();
+        if(!resultado.wasNull()){
+            id = resultado.getInt(1);
+        }
+        return id;
     }
     
 }

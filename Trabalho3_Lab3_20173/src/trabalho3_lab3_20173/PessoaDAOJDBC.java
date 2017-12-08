@@ -19,12 +19,13 @@ public class PessoaDAOJDBC implements PessoaDAO{
     private Connection conexao;
     private PreparedStatement operacaoInsere;
     private PreparedStatement operacaoListar;
+    private PreparedStatement operacaoListaId;
 
     public PessoaDAOJDBC() throws Exception{
         conexao = config.getConnection();
         operacaoInsere = conexao.prepareStatement("INSERT INTO pessoa(nome, email) VALUES(?,?)");
         operacaoListar = conexao.prepareStatement("SELECT nome, email FROM pessoa");
-        
+        operacaoListaId = conexao.prepareStatement("SELECT id FROM pessoa WHERE nome = ?");
     }
 
     @Override
@@ -48,7 +49,18 @@ public class PessoaDAOJDBC implements PessoaDAO{
         }
         return pessoas;
     }
-    
-    
 
+    @Override
+    public int listaId(Pessoa p) throws Exception {
+        int id = -1;
+        operacaoListaId.clearParameters();
+        operacaoListaId.setString(1, p.getNome());
+        ResultSet resultado = operacaoListaId.executeQuery();
+        if(!resultado.wasNull()){
+            id = resultado.getInt(1);
+        }
+        return id;
+    }
+    
+    
 }

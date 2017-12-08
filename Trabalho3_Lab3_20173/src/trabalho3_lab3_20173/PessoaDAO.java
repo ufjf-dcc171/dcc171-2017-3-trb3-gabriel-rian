@@ -12,4 +12,5 @@ import java.util.List;
 public interface PessoaDAO {
     public void cria(Pessoa p) throws Exception;
     public List<Pessoa> listaTodas() throws Exception;
+    public int listaId(Pessoa p) throws Exception;
 }

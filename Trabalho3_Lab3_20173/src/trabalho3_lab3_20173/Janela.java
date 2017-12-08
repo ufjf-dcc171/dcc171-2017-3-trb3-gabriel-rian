@@ -85,6 +85,7 @@ public class Janela extends JFrame {
     private final JButton btnStatus = new JButton("Alterar Situação Tarefa");
     private final JButton btnEditaTarefa = new JButton("Editar Tarefa");
     private final JButton btnExcluirTarefa = new JButton("Excluir Tarefa");
+    private final JButton btnPessoaTarefa = new JButton("Adicionar Pessoa-Tarefa");
     
     private final JPanel pnlLista = new JPanel();
     private final JPanel pnlLabels = new JPanel();
@@ -113,7 +114,7 @@ public class Janela extends JFrame {
         pnlComponentes.setLayout(new GridLayout(11,1));
         pnlComponentesProj.setLayout(new GridLayout(11,1));
         pnlAcao.setLayout(new GridLayout(1,3));
-        pnlBotoes.setLayout(new GridLayout(9,1));
+        pnlBotoes.setLayout(new GridLayout(10,1));
         pnlPrincipal.setLayout(new BorderLayout());
         
         
@@ -145,6 +146,7 @@ public class Janela extends JFrame {
         pnlBotoes.add(btnStatus);
         pnlBotoes.add(btnEditaTarefa);
         pnlBotoes.add(btnExcluirTarefa);
+        pnlBotoes.add(btnPessoaTarefa);
         pnlBotoes.add(lbBanco);
         pnlBotoes.add(txtBancoDados);
         
@@ -324,6 +326,28 @@ public class Janela extends JFrame {
             }
         });
         
+        btnPessoaTarefa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    TarefaPessoaDAO dao = new TarefaPessoaDAOJDBC();
+                    TarefaDAO daoT = new TarefaDAOJDBC();
+                    PessoaDAO daoP = new PessoaDAOJDBC();
+                    
+                    Tarefa f = (Tarefa) lstTarefa.getSelectedValue();
+                    Pessoa p = (Pessoa) lstPessoa.getSelectedValue();
+                    
+                    int idPessoa = daoP.listaId(p);
+                    int idTarefa = daoT.listaIdTarefa(f);
+                    
+                    dao.relacionaTP(idTarefa, idPessoa);
+                    JOptionPane.showMessageDialog(null, "Pessoa adiciona com sucesso a tarefa");
+                } catch (Exception ex) {
+                    Logger.getLogger(Janela.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
        //---------------------------------------Fim Acoes Botoes---------------------------------------------------------
        
        //------------------------------------------Incio Controle Listas-------------------------------------------------
@@ -356,4 +380,6 @@ public class Janela extends JFrame {
         txtPercentualTarefa.setText("");
         txtStatusProjeto.setText("");
     }
+    
+  
 }
