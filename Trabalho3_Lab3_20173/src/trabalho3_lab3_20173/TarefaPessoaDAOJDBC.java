@@ -26,7 +26,10 @@ public class TarefaPessoaDAOJDBC implements TarefaPessoaDAO{
     
     @Override
     public void relacionaTP(int f, int p) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        operacaoInsereRelacao.clearParameters();
+        operacaoInsereRelacao.setInt(1, p);
+        operacaoInsereRelacao.setInt(2, f);
+        operacaoInsereRelacao.executeUpdate();
     }
     
 }

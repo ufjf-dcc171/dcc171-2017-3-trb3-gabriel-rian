@@ -95,7 +95,7 @@ public class TarefaDAOJDBC implements TarefaDAO{
         operacaoListaId.clearParameters();
         operacaoListaId.setString(1, f.getNome());
         ResultSet resultado = operacaoListaId.executeQuery();
-        if(!resultado.wasNull()){
+        while (resultado.next()) {
             id = resultado.getInt(1);
         }
         return id;

@@ -56,9 +56,10 @@ public class PessoaDAOJDBC implements PessoaDAO{
         operacaoListaId.clearParameters();
         operacaoListaId.setString(1, p.getNome());
         ResultSet resultado = operacaoListaId.executeQuery();
-        if(!resultado.wasNull()){
+        while (resultado.next()) {
             id = resultado.getInt(1);
-        }
+        }  
+        System.out.print(id);
         return id;
     }
     
