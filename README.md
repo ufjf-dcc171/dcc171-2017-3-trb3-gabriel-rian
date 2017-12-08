@@ -1,4 +1,5 @@
-Nome: Gabriel dos Santos Nascimento 201376133
+
+      Gabriel dos Santos Nascimento 201376133
       
       Rian das Dores Alves 201676040
 
